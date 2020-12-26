@@ -1,42 +1,23 @@
-const carParts = ["tsla342", "vw0929", "tyt567", "bmw6126", "cabrio213", "alfaromeo3234"]
-const autoList = [];
+// Bu cözüm en moderni
+// bizim ama normal fonksiyonlari kullanmamiz lazim
 
-let MAIN_METHOD = (pAutoName) => {
-    let capitalizName = CAPITALIZE_TO_AUTO_NAME(pAutoName);
-    let revereseName = REVERSE_NAME(capitalizName);
-    let addCompany = ADD_COMPANY(revereseName);
-    let matches = Match(addCompany);
-    let addDate = ADD_DATE_TO_THE_END(matches);
-    autoList.push(addDate);
-}
+const carParts = ["tsla342", "vw0929", "tyt567", "bmw6126", "cabrio213", "alfaromeo3234"];
 
 // Parca isimleri büyük harflere cevrilecektir.
-const CAPITALIZE_TO_AUTO_NAME = (pName) => {
-    return pName.toUpperCase();
-}
+const capitalize = (pName) => pName.toUpperCase();
 // Parca isimlerinden sayilar cikartilacaktir.
-const Match = (pName) => {
-    pName = pName.replace(/[0-9]/g, '');
-    return pName;
-}
+const extractNumbers = (pName) => pName.replace(/[0-9]/g, '');
 // Parca isimleri tersine cevrilecektir.
-const REVERSE_NAME = (pName) => {
-    return pName.split("").reverse().join("");
-}
+const reverse = (pName) => pName.split("").reverse().join("");
 // Her parcanin basina KEREMAG_ eklenecektir.
-const ADD_COMPANY = (pName) => {
-    //pName.padStart(pName.length+8, "KEREMAG_"); Farklı bir ekleme yöntemi;
-    return "KEREMAG__" + pName;
-}
-
+const addCompanyName = (pName) => "KEREMAG__" + pName;
 // Her parcanin sonuna ise parcanin sisteme girildigi tarih eklenecektir.
-const ADD_DATE_TO_THE_END = (pName) => {
-    let addDate = pName + "__" + Date();
-    return addDate;
-}
-//Tüm dizide bu fonksiyonun uygulanmasını sağlıyoruz.
-for (let index = 0; index < carParts.length; index++) {
-    MAIN_METHOD(carParts[index])
-}
+const addDate = (pName) => pName + "__" + Date();
 
-console.log(autoList)
+const result = carParts.map(capitalize)
+                       .map(reverse)
+                       .map(addCompanyName)
+                       .map(extractNumbers)
+                       .map(addDate);
+                       
+console.log("Spare Parts in Kerem AG", result);
